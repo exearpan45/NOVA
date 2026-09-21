@@ -15,7 +15,7 @@ class NovaViewModelFactory(private val context: Context) : ViewModelProvider.Fac
   override fun <T : ViewModel> create(modelClass: Class<T>): T {
     if (modelClass.isAssignableFrom(NovaViewModel::class.java)) {
       val database = AppDatabase.getDatabase(context)
-      val taskRepo = TaskRepository(database.taskDao())
+      val taskRepo = TaskRepository(database.taskDao(), context.applicationContext)
       val noteRepo = NoteRepository(database.noteDao())
       val focusRepo = FocusRepository(database.focusSessionDao())
       val userPrefsRepo = UserPreferencesRepository(context)

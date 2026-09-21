@@ -25,11 +25,14 @@ android {
 
   signingConfigs {
     create("release") {
-      val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
-      storeFile = file(keystorePath)
-      storePassword = System.getenv("STORE_PASSWORD")
-      keyAlias = "upload"
-      keyPassword = System.getenv("KEY_PASSWORD")
+      val keystorePath = System.getenv("KEYSTORE_PATH")
+      val keystoreFile = keystorePath?.let { file(it) } ?: file("${rootDir}/my-upload-key.jks")
+      if (keystoreFile.exists()) {
+        storeFile = keystoreFile
+        storePassword = System.getenv("STORE_PASSWORD")
+        keyAlias = "upload"
+        keyPassword = System.getenv("KEY_PASSWORD")
+      }
     }
     create("debugConfig") {
       storeFile = file("${rootDir}/debug.keystore")
@@ -42,9 +45,13 @@ android {
   buildTypes {
     release {
       isCrunchPngs = false
-      isMinifyEnabled = false
+      isMinifyEnabled = true
+      isShrinkResources = true
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-      signingConfig = signingConfigs.getByName("release")
+      val releaseSigning = signingConfigs.getByName("release")
+      if (releaseSigning.storeFile?.exists() == true) {
+        signingConfig = releaseSigning
+      }
     }
     debug { signingConfig = signingConfigs.getByName("debugConfig") }
   }
@@ -93,6 +100,8 @@ dependencies {
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.core.splashscreen)
   implementation(libs.androidx.datastore.preferences)
+  implementation(libs.androidx.glance.appwidget)
+  implementation(libs.androidx.glance.material3)
   implementation(libs.androidx.lifecycle.runtime.compose)
   implementation(libs.androidx.lifecycle.runtime.ktx)
   implementation(libs.androidx.lifecycle.viewmodel.compose)

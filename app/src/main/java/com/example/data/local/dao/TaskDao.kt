@@ -17,6 +17,12 @@ interface TaskDao {
   @Query("SELECT * FROM tasks WHERE id = :id")
   suspend fun getTaskById(id: Int): TaskEntity?
 
+  @Query("SELECT * FROM tasks WHERE isCompleted = 0 ORDER BY CASE WHEN dueDateMillis IS NULL THEN 1 ELSE 0 END, dueDateMillis ASC, CASE priority WHEN 'HIGH' THEN 1 WHEN 'MEDIUM' THEN 2 ELSE 3 END, createdAtMillis DESC LIMIT :limit")
+  suspend fun getUpcomingTasks(limit: Int = 10): List<TaskEntity>
+
+  @Query("UPDATE tasks SET isCompleted = :isCompleted WHERE id = :id")
+  suspend fun updateTaskCompletion(id: Int, isCompleted: Boolean)
+
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   suspend fun insertTask(task: TaskEntity): Long
 

@@ -16,6 +16,16 @@
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Room Database entities, DAOs, and Database
+-keep class com.example.data.local.entity.** { *; }
+-keep interface com.example.data.local.dao.** { *; }
+-keep class * extends androidx.room.RoomDatabase
+
+# Domain models
+-keep class com.example.domain.model.** { *; }
+
+# Glance App Widget
+-keep class * extends androidx.glance.appwidget.GlanceAppWidgetReceiver
+-keep class * extends androidx.glance.appwidget.GlanceAppWidget
+-keep class * implements androidx.glance.appwidget.action.ActionCallback
+

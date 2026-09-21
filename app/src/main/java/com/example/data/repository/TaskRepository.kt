@@ -1,47 +1,71 @@
 package com.example.data.repository
 
+import android.content.Context
+import androidx.glance.appwidget.updateAll
 import com.example.data.local.dao.TaskDao
 import com.example.data.local.entity.TaskEntity
 import com.example.domain.model.Priority
 import com.example.domain.model.SubTask
 import com.example.domain.model.TaskCategory
 import com.example.domain.model.TaskItem
+import com.example.widget.NovaTasksWidget
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class TaskRepository(private val taskDao: TaskDao) {
+class TaskRepository(
+  private val taskDao: TaskDao,
+  private val context: Context? = null
+) {
+
+  private suspend fun notifyWidgetUpdate() {
+    context?.let { ctx ->
+      try {
+        NovaTasksWidget().updateAll(ctx)
+      } catch (_: Exception) {
+        // Safe fallback in test or headless environments
+      }
+    }
+  }
 
   val allTasks: Flow<List<TaskItem>> = taskDao.getAllTasks().map { list ->
     list.map { it.toDomain() }
   }
 
   suspend fun insertTask(task: TaskItem): Long {
-    return taskDao.insertTask(TaskEntity.fromDomain(task))
+    val id = taskDao.insertTask(TaskEntity.fromDomain(task))
+    notifyWidgetUpdate()
+    return id
   }
 
   suspend fun updateTask(task: TaskItem) {
     taskDao.updateTask(TaskEntity.fromDomain(task))
+    notifyWidgetUpdate()
   }
 
   suspend fun deleteTask(task: TaskItem) {
     taskDao.deleteTask(TaskEntity.fromDomain(task))
+    notifyWidgetUpdate()
   }
 
   suspend fun deleteTaskById(id: Int) {
     taskDao.deleteTaskById(id)
+    notifyWidgetUpdate()
   }
 
   suspend fun deleteCompletedTasks() {
     taskDao.deleteCompletedTasks()
+    notifyWidgetUpdate()
   }
 
   suspend fun clearAllTasks() {
     taskDao.clearAllTasks()
+    notifyWidgetUpdate()
   }
 
   suspend fun toggleTaskCompletion(task: TaskItem) {
     val updated = task.copy(isCompleted = !task.isCompleted)
     taskDao.updateTask(TaskEntity.fromDomain(updated))
+    notifyWidgetUpdate()
   }
 
   suspend fun toggleSubTaskCompletion(task: TaskItem, subTaskId: String) {
@@ -54,6 +78,7 @@ class TaskRepository(private val taskDao: TaskDao) {
       isCompleted = if (allSubtasksDone) true else task.isCompleted
     )
     taskDao.updateTask(TaskEntity.fromDomain(updatedTask))
+    notifyWidgetUpdate()
   }
 
   suspend fun populateInitialData() {
@@ -99,5 +124,6 @@ class TaskRepository(private val taskDao: TaskDao) {
       )
     )
     taskDao.insertTasks(sampleTasks.map { TaskEntity.fromDomain(it) })
+    notifyWidgetUpdate()
   }
 }

@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Nova</string>
+    <string name="widget_name">Nova Upcoming Tasks</string>
+    <string name="widget_description">Quick view and interaction with your upcoming tasks</string>
 </resources>
 
