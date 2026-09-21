@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Outer soft ambient ring -->
+    <path
+        android:pathData="M 54,18 A 36,36 0 1,1 53.99,18"
+        android:strokeWidth="1.5"
+        android:strokeColor="#384B70"
+        android:strokeAlpha="0.6" />
+
+    <!-- Orbital focus arc 1 -->
+    <path
+        android:pathData="M 28,54 A 26,26 0 0,1 80,54"
+        android:strokeWidth="2"
+        android:strokeColor="#6366F1"
+        android:strokeAlpha="0.8" />
+
+    <!-- Orbital focus arc 2 -->
+    <path
+        android:pathData="M 80,54 A 26,26 0 0,1 28,54"
+        android:strokeWidth="2"
+        android:strokeColor="#8B5CF6"
+        android:strokeAlpha="0.8" />
+
+    <!-- Nova Star - North-East wing -->
+    <path
+        android:pathData="M 54,14 L 62,46 L 54,54 Z"
+        android:fillColor="#818CF8" />
+
+    <!-- Nova Star - South-East wing -->
+    <path
+        android:pathData="M 94,54 L 62,62 L 54,54 Z"
+        android:fillColor="#6366F1" />
+
+    <!-- Nova Star - South-West wing -->
+    <path
+        android:pathData="M 54,94 L 46,62 L 54,54 Z"
+        android:fillColor="#4F46E5" />
+
+    <!-- Nova Star - North-West wing -->
+    <path
+        android:pathData="M 14,54 L 46,46 L 54,54 Z"
+        android:fillColor="#A78BFA" />
+
+    <!-- Fill quadrants between wings for solid modern geometric star -->
+    <path
+        android:pathData="M 54,14 L 94,54 L 62,54 L 54,46 Z"
+        android:fillColor="#6366F1"
+        android:fillAlpha="0.25" />
+    <path
+        android:pathData="M 94,54 L 54,94 L 54,62 L 62,54 Z"
+        android:fillColor="#4338CA"
+        android:fillAlpha="0.25" />
+    <path
+        android:pathData="M 54,94 L 14,54 L 46,54 L 54,62 Z"
+        android:fillColor="#4338CA"
+        android:fillAlpha="0.25" />
+    <path
+        android:pathData="M 14,54 L 54,14 L 54,46 L 46,54 Z"
+        android:fillColor="#818CF8"
+        android:fillAlpha="0.25" />
+
+    <!-- Secondary diagonal diamond rays -->
+    <path
+        android:pathData="M 54,54 L 74,34 L 54,46 Z"
+        android:fillColor="#38BDF8" />
+    <path
+        android:pathData="M 54,54 L 74,74 L 62,54 Z"
+        android:fillColor="#06B6D4" />
+    <path
+        android:pathData="M 54,54 L 34,74 L 54,62 Z"
+        android:fillColor="#6366F1" />
+    <path
+        android:pathData="M 54,54 L 34,34 L 46,54 Z"
+        android:fillColor="#C084FC" />
+
+    <!-- Bright inner central star core -->
+    <path
+        android:pathData="M 54,38 L 60,50 L 70,54 L 60,58 L 54,70 L 48,58 L 38,54 L 48,50 Z"
+        android:fillColor="#FFFFFF" />
+
+    <!-- Core glowing focal dot -->
+    <path
+        android:pathData="M 54,51 A 3,3 0 1,1 53.99,51"
+        android:fillColor="#E0E7FF" />
+
+    <!-- Small celestial accent sparkles -->
+    <path
+        android:pathData="M 30,28 L 31,31 L 34,32 L 31,33 L 30,36 L 29,33 L 26,32 L 29,31 Z"
+        android:fillColor="#38BDF8"
+        android:fillAlpha="0.9" />
+    <path
+        android:pathData="M 78,28 L 79,31 L 82,32 L 79,33 L 78,36 L 77,33 L 74,32 L 77,31 Z"
+        android:fillColor="#A78BFA"
+        android:fillAlpha="0.9" />
+    <path
+        android:pathData="M 80,78 L 81,80 L 83,81 L 81,82 L 80,84 L 79,82 L 77,81 L 79,80 Z"
+        android:fillColor="#38BDF8"
+        android:fillAlpha="0.8" />
+    <path
+        android:pathData="M 28,78 L 29,80 L 31,81 L 29,82 L 28,84 L 27,82 L 25,81 L 27,80 Z"
+        android:fillColor="#818CF8"
+        android:fillAlpha="0.8" />
+
+</vector>
